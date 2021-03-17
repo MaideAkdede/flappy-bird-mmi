@@ -2,6 +2,7 @@ import background from "./background";
 import ground from "./ground";
 import birdie from "./birdie";
 import gameController from "./gameController";
+import TubesPair from "./TubesPair";
 
 const game = {
     canvas: document.getElementById('game'),
@@ -10,6 +11,10 @@ const game = {
     sprite: new Image(),
     gravity: 0.9,
     hasStarted: false,
+    tubesPairs: [],
+    maxTubesPairs: 3,
+    frameCounter: 0,
+    frameInterval: 80,
 
     init() {
         this.context = this.canvas.getContext('2d');
@@ -28,8 +33,18 @@ const game = {
         })
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         background.update();
+        if(this.hasStarted){
+            if(this.frameCounter++ > this.frameInterval){
+                if(this.tubesPairs.length >= this.maxTubesPairs){
+                    this.tubesPairs.splice(0, 1);
+                }
+                this.tubesPairs.push(new TubesPair(this));
+                this.frameCounter = 0;
+            }
+        }
         ground.update();
         birdie.update();
+        console.log(this.tubesPairs);
     },
     renderSpriteFrame (coordinates){
         this.context.drawImage(
