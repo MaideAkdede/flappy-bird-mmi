@@ -25,11 +25,13 @@ const birdie = {
         this.maxAnimationStep = this.frames.length - 1;
     },
     update() {
-        if (this.fallSpeed < this.maxFallSpeed){
-            this.fallSpeed += this.game.gravity;
+        if(this.game.hasStarted){
+            if (this.fallSpeed < this.maxFallSpeed){
+                this.fallSpeed += this.game.gravity;
+            }
+            this.y += this.fallSpeed;
+            this.checkCollisionWithGround();
         }
-        this.y += this.fallSpeed;
-        this.checkCollisionWithGround();
         this.render();
     },
     render() {
