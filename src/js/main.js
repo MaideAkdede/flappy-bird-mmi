@@ -7,6 +7,7 @@ const game = {
     context: null,
     spriteSheetSrc : './src/resources/sprite.png',
     sprite: new Image(),
+    gravity: 0.9,
 
     init() {
         this.context = this.canvas.getContext('2d');

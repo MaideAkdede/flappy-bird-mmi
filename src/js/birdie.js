@@ -25,6 +25,10 @@ const birdie = {
         this.maxAnimationStep = this.frames.length - 1;
     },
     update() {
+        if (this.fallSpeed < this.maxFallSpeed){
+            this.fallSpeed += this.game.gravity;
+        }
+        this.y += this.fallSpeed;
         this.render();
     },
     render() {
