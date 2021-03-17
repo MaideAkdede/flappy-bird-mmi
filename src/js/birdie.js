@@ -29,6 +29,7 @@ const birdie = {
             this.fallSpeed += this.game.gravity;
         }
         this.y += this.fallSpeed;
+        this.checkCollisionWithGround();
         this.render();
     },
     render() {
@@ -53,6 +54,12 @@ const birdie = {
             }
         )
         this.game.context.restore();
+    },
+    checkCollisionWithGround (){
+        if(this.y + (this.height / 2) > ground.frame.dy){
+            this.y = ground.frame.dy - this.height / 2;
+            this.fallSpeed = -this.maxFallSpeed;
+        }
     }
 }
 export default birdie;
