@@ -41,10 +41,12 @@ const game = {
                 this.tubesPairs.push(new TubesPair(this));
                 this.frameCounter = 0;
             }
+            this.tubesPairs.forEach(tubePair=>{
+                tubePair.update();
+            })
         }
         ground.update();
         birdie.update();
-        console.log(this.tubesPairs);
     },
     renderSpriteFrame (coordinates){
         this.context.drawImage(
