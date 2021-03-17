@@ -40,7 +40,7 @@ const birdie = {
         }
         this.game.context.save();
         this.game.context.translate(this.x, this.y);
-        this.game.context.rotate(0);
+        this.game.context.rotate(this.fallSpeed / this.maxFallSpeed);
         this.game.renderSpriteFrame(
             {
                 sx: this.frames[this.animationStep].sx,
