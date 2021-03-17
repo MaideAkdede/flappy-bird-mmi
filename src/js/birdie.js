@@ -25,18 +25,19 @@ const birdie = {
         this.maxAnimationStep = this.frames.length - 1;
     },
     update() {
-        if(this.game.hasStarted){
-            if (this.fallSpeed < this.maxFallSpeed){
+        if (this.game.hasStarted) {
+            if (this.fallSpeed < this.maxFallSpeed) {
                 this.fallSpeed += this.game.gravity;
             }
             this.y += this.fallSpeed;
             this.checkCollisionWithGround();
+            this.checkCollisionWithTubes();
         }
         this.render();
     },
     render() {
         this.counterInterval++
-        if(!(this.counterInterval%this.maxInterval)){
+        if (!(this.counterInterval % this.maxInterval)) {
             this.counterInterval = 0
             this.animationStep = this.animationStep < this.maxAnimationStep ? this.animationStep + 1 : 0;
         }
@@ -57,14 +58,25 @@ const birdie = {
         )
         this.game.context.restore();
     },
-    goUp(){
+    goUp() {
         this.fallSpeed = -this.maxFallSpeed;
     },
-    checkCollisionWithGround (){
-        if(this.y + (this.height / 2) > ground.frame.dy){
+    checkCollisionWithGround() {
+        if (this.y + (this.height / 2) > ground.frame.dy) {
             this.y = ground.frame.dy - this.height / 2;
             this.goUp();
         }
+    },
+    checkCollisionWithTubes() {
+        this.game.tubesPairs.forEach(tubePair => {
+            if (this.x + this.width / 2 > tubePair.x &&
+                this.x - this.width / 2 < tubePair.x + tubePair.width) {
+                if ((this.y - this.height / 2) < tubePair.yTop + tubePair.height ||
+                    (this.y - this.height / 2) > tubePair.yBottom + tubePair.height) {
+                    this.game.cancelAnimation();
+                }
+            }
+        })
     }
 }
 export default birdie;
