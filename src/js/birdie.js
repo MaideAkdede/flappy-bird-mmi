@@ -1,5 +1,5 @@
 import ground from "./ground";
-
+import gameOver from "./gameOver";
 const birdie = {
     game: null,
     frames: [
@@ -72,7 +72,9 @@ const birdie = {
             if (this.x + this.width / 2 > tubePair.x &&
                 this.x - this.width / 2 < tubePair.x + tubePair.width) {
                 if ((this.y - this.height / 2) < tubePair.yTop + tubePair.height ||
-                    (this.y - this.height / 2) > tubePair.yBottom + tubePair.height) {
+                    (this.y - this.height / 2) > tubePair.yBottom) {
+
+                    gameOver.update();
                     this.game.cancelAnimation();
                 }
             }

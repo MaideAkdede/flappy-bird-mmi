@@ -1,8 +1,9 @@
 import background from "./background";
+import TubesPair from "./TubesPair";
+import gameController from "./gameController";
 import ground from "./ground";
 import birdie from "./birdie";
-import gameController from "./gameController";
-import TubesPair from "./TubesPair";
+import gameOver from "./gameOver";
 
 const game = {
     canvas: document.getElementById('game'),
@@ -25,6 +26,7 @@ const game = {
             background.init(this);
             ground.init(this);
             birdie.init(this);
+            gameOver.init(this);
             this.animate();
         })
     },
@@ -64,6 +66,14 @@ const game = {
     },
     cancelAnimation(){
         window.cancelAnimationFrame(this.requestId);
+        this.gameOverText();
+    },
+    gameOverText (){
+        window.requestAnimationFrame(() => {
+            this.gameOverText();
+        })
+        //this.context.clearRect( gameOver.frame.dx , gameOver.maxY, gameOver.frame.dx,  gameOver.maxY);
+        gameOver.update();
     }
 }
 game.init();
